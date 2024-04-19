@@ -1,0 +1,73 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tabular Data API",
+  "description": "Get table rows for a given employee and table combination",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for getting tabular data",
+      "value": "/v1/employees/{employeeId}/tables/{tableId}/tableRows"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/x-www-form-urlencoded", "application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["all", "active", "inactive"],
+          "description": "Filter results by status"
+        },
+        "lastChanged": {
+          "type": "string",
+          "description": "Return rows that have changed since this date/time"
+        },
+        "fields": {
+          "type": "string",
+          "description": "Comma-separated list of fields to return"
+        }
+      },
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "tableRows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      },
+      "required": ["tableRows"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"],
+  "additionalProperties": false
+}

@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get Company Report",
+  "description": "Request one of your existing custom company reports from the My Reports or Manage Reports sections in the Reports tab.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for getting a company report",
+      "const": "/api/gateway.php/{companyDomain}/v1/reports/{id}"
+    },
+    "method": {
+      "type": "string",
+      "const": "GET",
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": [
+        "Authorization"
+      ]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "type": "string",
+          "description": "The output format for the report (CSV, PDF, XLS, XML, JSON)"
+        },
+        "fd": {
+          "type": "string",
+          "description": "Apply standard duplicate field filtering (yes/no)",
+          "enum": [
+            "yes",
+            "no"
+          ]
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the report"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The field ID"
+              },
+              "type": {
+                "type": "string",
+                "description": "The field type (text, employee, etc.)"
+              },
+              "name": {
+                "type": "string",
+                "description": "The display name of the field"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "name"
+            ]
+          }
+        },
+        "employees": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              }
+            },
+            "patternProperties": {
+              "^\\d+$": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "title",
+        "fields",
+        "employees"
+      ]
+    }
+  },
+  "required": [
+    "endpoint",
+    "method",
+    "headers",
+    "response"
+  ]
+}

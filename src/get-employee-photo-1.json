@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get Employee Photo",
+  "description": "Returns the binary data for the employee photo.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint to get an employee photo",
+      "value": "/v1/employees/{employeeId}/photo/{size}"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": [],
+      "description": "No request body required"
+    },
+    "body": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "employeeId": {
+          "type": "integer",
+          "description": "The id of the employee"
+        },
+        "size": {
+          "type": "string",
+          "description": "The size of the photo to return",
+          "enum": ["original", "large", "medium", "small", "xs", "tiny"]
+        }
+      },
+      "required": ["employeeId", "size"]  
+    },
+    "response": {
+      "type": "string",
+      "description": "The binary image data for the employee photo"
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"]
+}

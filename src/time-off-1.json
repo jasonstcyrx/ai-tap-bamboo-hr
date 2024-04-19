@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Time Off API Endpoints",
+  "description": "API endpoints for managing employee time off requests, policies, and balances in BambooHR.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for managing time off",
+      "value": "/v1/time_off/"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET", "POST", "PUT", "DELETE"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/x-www-form-urlencoded", "application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "timeOffTypes": {
+          "type": "array",
+          "description": "List of available time off types",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the time off type"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the time off type"
+              }
+            },
+            "required": ["id", "name"]
+          }
+        },
+        "timeOffPolicies": {
+          "type": "array",
+          "description": "List of time off policies",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the policy"  
+              },
+              "name": {
+                "type": "string", 
+                "description": "Name of the policy"
+              },
+              "timeOffType": {
+                "type": "object",
+                "description": "Details of the time off type associated with the policy"
+              },
+              "accrualPeriod": {
+                "type": "string",
+                "description": "Frequency at which time off is accrued for the policy"
+              }
+            },
+            "required": ["id", "name", "timeOffType", "accrualPeriod"]
+          }  
+        },
+        "timeOffRequests": {
+          "type": "array",
+          "description": "List of time off requests",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the request"
+              },
+              "employee": {
+                "type": "object",
+                "description": "Details of the employee who submitted the request"
+              },
+              "status": {
+                "type": "string", 
+                "description": "Current status of the time off request"
+              },
+              "start": {
+                "type": "string",
+                "format": "date",
+                "description": "Start date of the requested time off"
+              },
+              "end": {
+                "type": "string",
+                "format": "date",
+                "description": "End date of the requested time off" 
+              },
+              "timeOffPolicyId": {
+                "type": "string",
+                "description": "ID of the time off policy associated with the request"
+              }
+            },
+            "required": ["id", "employee", "status", "start", "end", "timeOffPolicyId"]
+          }
+        }
+      },
+      "required": ["timeOffTypes", "timeOffPolicies", "timeOffRequests"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"],
+  "additionalProperties": false
+}

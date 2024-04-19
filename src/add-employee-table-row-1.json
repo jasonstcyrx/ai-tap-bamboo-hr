@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Add Employee Table Row",
+  "description": "Adds a table row for a given employee and table combination in BambooHR.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for adding an employee table row",
+      "value": "/api/gateway.php/{companyDomain}/v1/employees/{id}/tables/{table}"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["POST"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "description": "Date for the table row"
+        },
+        "location": {
+          "type": "string",
+          "description": "Location for the table row"
+        },
+        "divison": {
+          "type": "string",
+          "description": "Division for the table row"
+        },
+        "department": {
+          "type": "string",
+          "description": "Department for the table row"
+        },
+        "jobTitle": {
+          "type": "string",
+          "description": "Job title for the table row"
+        },
+        "reportsTo": {
+          "type": "string",
+          "description": "Reports to for the table row"
+        }
+      },
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "companyDomain": {
+          "type": "string",
+          "description": "Domain of the company"
+        },
+        "id": {
+          "type": "string",
+          "description": "ID of the employee"
+        },
+        "table": {
+          "type": "string",
+          "description": "Name of the table to add the row to"
+        }
+      },
+      "required": ["companyDomain", "id", "table"]
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the newly added table row"
+        }
+      },
+      "required": ["id"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "contentType", "queryParameters", "response"],
+  "additionalProperties": false
+}

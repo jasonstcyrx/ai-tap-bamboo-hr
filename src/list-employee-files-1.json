@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "List Employee Files and Categories",
+  "description": "This endpoint allows you to list employee files and categories in BambooHR.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for listing employee files and categories",
+      "value": "/api/gateway.php/{companyDomain}/v1/employees/{id}/files/view/"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/x-www-form-urlencoded", "application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the file category"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the file"
+                    },
+                    "fileName": {
+                      "type": "string",
+                      "description": "The filename of the uploaded file"
+                    },
+                    "fileSize": {
+                      "type": "integer",
+                      "description": "The size of the file in bytes"
+                    },
+                    "uploaded": {
+                      "type": "string",
+                      "description": "The date and time the file was uploaded"
+                    },
+                    "uploadedBy": {
+                      "type": "string",
+                      "description": "The name of the user who uploaded the file"
+                    },
+                    "shared": {
+                      "type": "string",
+                      "description": "Whether the file is shared or not"
+                    }
+                  },
+                  "required": ["name", "fileName", "fileSize", "uploaded", "uploadedBy", "shared"]
+                }
+              }
+            },
+            "required": ["name", "files"]
+          }
+        }
+      },
+      "required": ["categories"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"]
+}

@@ -1,0 +1,78 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get Changed Employee IDs",
+  "description": "This API allows for efficient syncing of employee data. When you use this API you will provide a timestamp and the results will be limited to just the employees that have changed since the time you provided. This API operates on an employee-last-changed-timestamp, which means that a change in ANY individual field in the employee record, as well as any change to the employment status, job info, or compensation tables, will cause that employee to be returned via this API.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for getting changed employee IDs",
+      "value": "/api/gateway.php/{companyDomain}/v1/employees/changed"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "since": {
+          "type": "string",
+          "description": "ISO 8601 date in one of the following formats: yyyy-mm-ddThh:mm:ss+hh:mm, yyyy-mm-ddThh:mm:ss-hh:mm, yyyy-mm-ddThh:mm:ss+hhmm, yyyy-mm-ddThh:mm:ss-hhmm, yyyy-mm-ddThh:mm:ssZ"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["inserted", "updated", "deleted"],
+          "description": "Filter by the type of change (inserted, updated, or deleted)"
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "latest": {
+          "type": "string",
+          "description": "The most recent change timestamp of all changes returned"
+        },
+        "employees": {
+          "type": "object",
+          "patternProperties": {
+            "^\\d+$": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "The employee ID"
+                },
+                "action": {
+                  "type": "string",
+                  "enum": ["Inserted", "Updated", "Deleted"],
+                  "description": "The type of change for the employee"
+                },
+                "lastChanged": {
+                  "type": "string",
+                  "description": "The timestamp of the most recent change for the employee"
+                }
+              },
+              "required": ["id", "action", "lastChanged"]
+            }
+          }
+        }
+      },
+      "required": ["latest", "employees"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"]
+}

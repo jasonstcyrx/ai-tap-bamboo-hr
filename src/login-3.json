@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "User Login",
+  "description": "Authenticate a user with their email and password to obtain an API key for making requests to the BambooHR API.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for user login",
+      "value": "/api/gateway.php/{companyDomain}/v1/login"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["POST"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Content-Type": {
+          "type": "string",
+          "description": "Content type of the request body"
+        }
+      },
+      "required": ["Content-Type"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/x-www-form-urlencoded"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "description": "The user's email address"
+        },
+        "password": {
+          "type": "string",
+          "description": "The user's password"
+        },
+        "applicationKey": {
+          "type": "string",
+          "description": "The application key provided by BambooHR"
+        },
+        "deviceId": {
+          "type": "string",
+          "description": "Optional - An ID for the user's mobile device"
+        }
+      },
+      "required": ["user", "password", "applicationKey"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "description": "Indicates if the authentication was successful"
+        },
+        "userId": {
+          "type": "integer",
+          "description": "The user's ID (present if authentication was successful)"
+        },
+        "employeeId": {
+          "type": "integer",
+          "description": "The employee's ID (present if authentication was successful)"
+        },
+        "key": {
+          "type": "string",
+          "description": "The API key to use for subsequent requests (present if authentication was successful)"
+        }
+      },
+      "required": ["success"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "contentType", "body", "response"],
+  "additionalProperties": false
+}

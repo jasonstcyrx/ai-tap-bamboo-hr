@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Estimate Future Time Off Balances",
+  "description": "This endpoint estimates future time off balances for an employee based on time off accruals, scheduled time off, and carry-over events.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for estimating future time off balances",
+      "value": "/api/gateway.php/{companyDomain}/v1/employees/{employeeId}/time_off/calculator"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/x-www-form-urlencoded", "application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timeOffType": {
+            "type": "string",
+            "description": "The ID of the time off type"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the time off type"
+          },
+          "units": {
+            "type": "string",
+            "description": "The units used for the time off type (e.g., hours, days)"
+          },
+          "balance": {
+            "type": "string",
+            "description": "The estimated future balance of the time off type"
+          },
+          "policyType": {
+            "type": "string",
+            "description": "The type of time off policy (e.g., accruing, discretionary, manual)"
+          },
+          "usedYearToDate": {
+            "type": "string",
+            "description": "The amount of time off used year-to-date for the time off type"
+          },
+          "end": {
+            "type": "string",
+            "format": "date",
+            "description": "The end date for the time off policy"
+          }
+        },
+        "required": ["timeOffType", "name", "units", "balance", "policyType", "usedYearToDate", "end"]
+      }
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"]
+}

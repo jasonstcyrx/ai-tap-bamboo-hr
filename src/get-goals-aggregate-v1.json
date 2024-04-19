@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get All Aggregate Goal Info",
+  "description": "Provides a list of all goals, type counts, goal comment counts, and employees shared with goals for the given employee. This version of the endpoint will not return any goals with milestones. Milestone functionality for this endpoint begins in version 1.2.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for getting all aggregate goal info",
+      "value": "/api/gateway.php/{companyDomain}/v1/performance/employees/{employeeId}/goals/aggregate"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "canAlign": {
+          "type": "boolean",
+          "description": "Indicates if the employee can align goals with company goals."
+        },
+        "canCreateGoals": {
+          "type": "boolean",
+          "description": "Indicates if the employee can create goals."
+        },
+        "filters": {
+          "type": "array",
+          "description": "List of available filters for goals.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The unique identifier for the filter."
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the filter."
+              },
+              "count": {
+                "type": "integer",
+                "description": "The number of goals matching the filter."
+              }
+            },
+            "required": ["id", "name", "count"]
+          }
+        },
+        "selectedFilter": {
+          "type": "string",
+          "description": "The ID of the currently selected filter."
+        },
+        "goals": {
+          "type": "array",
+          "description": "List of goals for the employee.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The unique identifier for the goal."
+              },
+              "title": {
+                "type": "string",
+                "description": "The title of the goal."
+              },
+              "description": {
+                "type": "string",
+                "description": "The description of the goal."
+              },
+              "percentComplete": {
+                "type": "integer",
+                "description": "The percentage of the goal that is complete."
+              },
+              "alignsWithOptionId": {
+                "type": ["string", "null"],
+                "description": "The ID of the company goal this goal aligns with, if any."
+              },
+              "sharedWithEmployeeIds": {
+                "type": "array",
+                "description": "List of employee IDs this goal is shared with.",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "dueDate": {
+                "type": "string",
+                "description": "The due date for the goal."
+              },
+              "completionDate": {
+                "type": ["string", "null"],
+                "description": "The date the goal was completed, if applicable."
+              },
+              "status": {
+                "type": "string",
+                "description": "The status of the goal."
+              }
+            },
+            "required": ["id", "title", "percentComplete", "alignsWithOptionId", "sharedWithEmployeeIds", "dueDate", "status"]
+          }
+        },
+        "persons": {
+          "type": "array",
+          "description": "List of employees the goals are shared with.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "employeeId": {
+                "type": "integer",
+                "description": "The unique identifier for the employee."
+              },
+              "userId": {
+                "type": ["integer", "null"],
+                "description": "The user ID for the employee, if applicable."
+              },
+              "displayFirstName": {
+                "type": "string",
+                "description": "The first name of the employee to display."
+              },
+              "lastName": {
+                "type": "string",
+                "description": "The last name of the employee."
+              },
+              "photoUrl": {
+                "type": "string",
+                "description": "The URL of the employee's photo."
+              }
+            },
+            "required": ["employeeId", "displayFirstName", "lastName", "photoUrl"]
+          }
+        },
+        "comments": {
+          "type": "array",
+          "description": "List of comment counts for each goal.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "goalId": {
+                "type": "string",
+                "description": "The unique identifier for the goal."
+              },
+              "commentCount": {
+                "type": "integer",
+                "description": "The number of comments on the goal."
+              }
+            },
+            "required": ["goalId", "commentCount"]
+          }
+        }
+      },
+      "required": ["canAlign", "canCreateGoals", "filters", "selectedFilter", "goals", "persons", "comments"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"]
+}

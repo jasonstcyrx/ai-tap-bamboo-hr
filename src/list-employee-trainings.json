@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "List Employee Trainings",
+  "description": "Get all employee training records. The owner of the API key used must have access to view the employee. The API will only return trainings for the employee that the owner of the API key has permission to see. Included with each employee training is the training information that has been selected for tracking in settings.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for listing employee trainings",
+      "value": "/v1/training/record/employee/{employeeId}"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": [],
+      "description": "No request body required"
+    },
+    "body": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "description": "The ID of the employee to retrieve training records for"
+        }
+      },
+      "required": ["employeeId"]
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "employees": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The employee ID"
+              },
+              "trainings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The training record ID"
+                    },
+                    "trainingType": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "The training type ID"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "The name of the training type"
+                        }
+                      }
+                    },
+                    "trainingCategory": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "The training category ID"  
+                        },
+                        "name": {
+                          "type": "string", 
+                          "description": "The name of the training category"
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "The status of the training"
+                    },
+                    "startDate": {
+                      "type": "string",
+                      "format": "date",
+                      "description": "The start date of the training"
+                    },
+                    "endDate": {
+                      "type": "string", 
+                      "format": "date",
+                      "description": "The end date of the training"
+                    },
+                    "renewalDate": {
+                      "type": "string",
+                      "format": "date", 
+                      "description": "The renewal date of the training"
+                    },
+                    "score": {
+                      "type": "number",
+                      "description": "The score of the training"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["employees"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "queryParameters", "response"],
+  "additionalProperties": false
+}

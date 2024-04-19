@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get Employee Table Rows",
+  "description": "Returns a data structure representing all the table rows for a given employee and table combination.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for getting employee table rows",
+      "value": "/api/gateway.php/{companyDomain}/v1/employees/{id}/tables/{table}"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "companyDomain": {
+          "type": "string",
+          "description": "The company domain for the BambooHR company"
+        },
+        "id": {
+          "type": "string",
+          "description": "The employee ID or 'all' for all employees"
+        },
+        "table": {
+          "type": "string",
+          "description": "The table name to retrieve data from"
+        }
+      },
+      "required": ["companyDomain", "id", "table"]
+    },
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "The date for the table row"
+          },
+          "location": {
+            "type": "string",
+            "description": "The location for the table row"
+          },
+          "department": {
+            "type": "string",
+            "description": "The department for the table row"
+          },
+          "title": {
+            "type": "string",
+            "description": "The job title for the table row"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "The full name for the table row"
+          }
+        },
+        "required": ["date", "location", "department", "title", "fullName"]
+      }
+    }
+  },
+  "required": ["endpoint", "method", "headers", "queryParameters", "response"]
+}

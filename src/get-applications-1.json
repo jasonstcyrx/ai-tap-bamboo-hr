@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get Applications",
+  "description": "Get a list of applications. The owner of the API key used must have access to ATS settings. Combine as many different optional parameter filters as you like.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for getting applications",
+      "value": "/api/gateway.php/{companyDomain}/v1/applicant_tracking/applications"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "jobId": {
+          "type": "integer",
+          "description": "Filter by job ID."
+        },
+        "status": {
+          "type": "string",
+          "description": "Filter by application status."
+        },
+        "stage": {
+          "type": "string",
+          "description": "Filter by application stage."
+        },
+        "hired": {
+          "type": "boolean",
+          "description": "Filter by hired or not hired."
+        },
+        "updatedSince": {
+          "type": "string",
+          "description": "Filter by applications updated since a given date/time."
+        },
+        "createdSince": {
+          "type": "string",
+          "description": "Filter by applications created since a given date/time."
+        },
+        "start": {
+          "type": "integer",
+          "description": "Start record for pagination."
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Number of records to return, for pagination."
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "applications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Unique ID of the application."
+              },
+              "jobId": {
+                "type": "integer",
+                "description": "ID of the job this application is for."
+              },
+              "jobTitle": {
+                "type": "string",
+                "description": "Title of the job this application is for."
+              },
+              "stage": {
+                "type": "string",
+                "description": "Current stage of the application."
+              },
+              "status": {
+                "type": "string",
+                "description": "Current status of the application."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the applicant."
+              },
+              "email": {
+                "type": "string",
+                "description": "Email address of the applicant."
+              },
+              "phone": {
+                "type": "string",
+                "description": "Phone number of the applicant."
+              },
+              "hired": {
+                "type": "boolean",
+                "description": "Whether the applicant has been hired or not."
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "Date and time the application was created."
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "Date and time the application was last updated."
+              },
+              "userCreatedAt": {
+                "type": "string",
+                "description": "Date and time the applicant user was created."
+              }
+            },
+            "required": [
+              "id",
+              "jobId",
+              "jobTitle",
+              "stage",
+              "status",
+              "name",
+              "email",
+              "hired",
+              "createdAt",
+              "updatedAt"
+            ]
+          }
+        }
+      },
+      "required": ["applications"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"]
+}

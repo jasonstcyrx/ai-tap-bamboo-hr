@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Available Goal Sharing Options",
+  "description": "Provides a list of employees with whom the specified employee's goals may be shared.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for getting available goal sharing options",
+      "value": "/v1/performance/employees/{employeeId}/goals/shareOptions"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "search": {
+          "type": "string",
+          "description": "Search term to filter the list of employees"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of employees to return"
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "persons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "employeeId": {
+                "type": "integer",
+                "description": "Unique identifier for the employee"
+              },
+              "userId": {
+                "type": ["integer", "null"],
+                "description": "Unique identifier for the user"
+              },
+              "displayFirstName": {
+                "type": "string",
+                "description": "First name of the employee"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the employee"
+              },
+              "photoUrl": {
+                "type": "string",
+                "description": "URL of the employee's photo"
+              }
+            },
+            "required": ["employeeId", "displayFirstName", "lastName", "photoUrl"]
+          }
+        }
+      },
+      "required": ["persons"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"]
+}

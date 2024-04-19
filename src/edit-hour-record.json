@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Edit an Hour Record",
+  "description": "Edit an existing hour record for an employee",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for editing an hour record",
+      "value": "/api/gateway.php/{companyDomain}/v1/timetracking/adjust"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["PUT"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "timeTrackingId": {
+          "type": "string",
+          "description": "The unique identifier for the time tracking record"
+        },
+        "hoursWorked": {
+          "type": "string",
+          "description": "The updated number of hours worked"
+        }
+      },
+      "required": ["timeTrackingId", "hoursWorked"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "timeTrackingId": {
+          "type": "string",
+          "description": "The unique identifier for the updated time tracking record"
+        }
+      },
+      "required": ["timeTrackingId"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "contentType", "body", "response"],
+  "additionalProperties": false
+}

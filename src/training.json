@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BambooHR API - Training",
+  "description": "The training API allows you to list, add, edit, and delete training types, training categories, and employee training records for your company.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for training management",
+      "value": "/v1/training"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET", "POST", "PUT", "DELETE"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/x-www-form-urlencoded", "application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the training type/category/record"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the training type/category/record"
+        },
+        "employeeId": {
+          "type": "string",
+          "description": "Employee ID for the training record"
+        }
+      },
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Filter training types/categories/records by type"
+        },
+        "categoryId": {
+          "type": "string",
+          "description": "Filter training records by category ID"
+        }
+      },
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "trainingTypes": {
+          "type": "array",
+          "description": "List of training types"
+        },
+        "trainingCategories": {
+          "type": "array",
+          "description": "List of training categories"
+        },
+        "employeeTrainings": {
+          "type": "array",
+          "description": "List of employee training records"
+        }
+      },
+      "required": []
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"],
+  "additionalProperties": false
+}

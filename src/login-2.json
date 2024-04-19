@@ -1,0 +1,82 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LoginUser API",
+  "description": "API to generate an API key for a user to access BambooHR APIs",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for generating an API key",
+      "value": "/employees/wfutilities/apikeylogin"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["POST"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Application key for authentication"
+        },
+        "Accept": {
+          "type": "string",
+          "description": "Content type that is acceptable"
+        }
+      },
+      "required": [
+        "Authorization",
+        "Accept"
+      ]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": [
+        "application/x-www-form-urlencoded",
+        "application/json"
+      ],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "BambooHR username for the user"
+        },
+        "password": {
+          "type": "string",
+          "description": "BambooHR password for the user" 
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "apiKey": {
+          "type": "string",
+          "description": "The generated API key for the user"
+        }
+      },
+      "required": [
+        "apiKey"
+      ]
+    }
+  },
+  "required": [
+    "endpoint",
+    "method", 
+    "headers",
+    "contentType",
+    "body",
+    "response"
+  ],
+  "additionalProperties": false
+}

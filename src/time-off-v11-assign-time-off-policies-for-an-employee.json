@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Assign Time Off Policies for an Employee, Version 1.1",
+  "description": "Assigns time off policies to an employee with accruals starting on the specified date. On success, returns a 200 Success code and the response content is the same as the List Time Off Policies API.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for assigning time off policies to an employee",
+      "value": "/api/gateway.php/{companyDomain}/v1_1/employees/{employeeId}/time_off/policies"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["PUT"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timeOffPolicyId": {
+            "type": "integer",
+            "description": "ID of the time off policy to assign"
+          },
+          "accrualStartDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when accruals start for the assigned time off policy"
+          }
+        },
+        "required": ["timeOffPolicyId", "accrualStartDate"]
+      }
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  "required": ["endpoint", "method", "headers", "contentType", "body", "response"],
+  "additionalProperties": false
+}

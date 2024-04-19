@@ -1,0 +1,77 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Add Application Comment",
+  "description": "Add a comment to an application. The owner of the API key used must have access to ATS settings.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for adding an application comment",
+      "value": "/api/gateway.php/{companyDomain}/v1/applicant_tracking/applications/{applicationId}/comments"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["POST"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "comment": {
+          "type": "string",
+          "description": "The comment text to add"
+        }
+      },
+      "required": ["comment"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the newly created comment"
+        },
+        "comment": {
+          "type": "string",
+          "description": "The comment text"
+        },
+        "applicationId": {
+          "type": "string",
+          "description": "ID of the application the comment was added to"
+        },
+        "createdBy": {
+          "type": "string",
+          "description": "ID of the user who created the comment"
+        },
+        "createdDate": {
+          "type": "string",
+          "description": "Date when the comment was created"
+        }
+      },
+      "required": ["id", "comment", "applicationId", "createdBy", "createdDate"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "contentType", "body", "response"],
+  "additionalProperties": false
+}

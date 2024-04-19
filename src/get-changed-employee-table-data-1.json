@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get Changed Employee Table Data",
+  "description": "Retrieves updated employee table data for a given table and timestamp",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint to get changed employee table data",
+      "value": "/v1/employees/changed/tables/{table}"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "since": {
+          "type": "string",
+          "description": "The timestamp to get changes since, in ISO 8601 format"
+        }
+      },
+      "required": ["since"]
+    },
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "description": "The start date of the employee's job info"
+          },
+          "location": {
+            "type": "string",
+            "description": "The employee's location"
+          },
+          "department": {
+            "type": "string",
+            "description": "The employee's department"
+          },
+          "division": {
+            "type": "string",
+            "description": "The employee's division"
+          },
+          "title": {
+            "type": "string",
+            "description": "The employee's job title"
+          },
+          "employee": {
+            "type": "string",
+            "description": "The employee's name"
+          }
+        },
+        "required": [
+          "startDate",
+          "location",
+          "department",
+          "division",
+          "title",
+          "employee"
+        ]
+      }
+    }
+  },
+  "required": ["endpoint", "method", "headers", "queryParameters", "response"]
+}

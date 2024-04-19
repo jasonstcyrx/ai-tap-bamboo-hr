@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Hours API",
+  "description": "The Hours API is used to send approved hours worked to BambooHR, similar to how you would send hours to a payroll company. These hours can also be retrieved, edited or deleted via the API.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for interacting with hour records",
+      "value": "/v1/hours"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET", "POST", "PUT", "DELETE"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/x-www-form-urlencoded", "application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "description": "The ID of the employee for whom the hours are being submitted"
+        },
+        "hours": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date",
+                "description": "The date the hours were worked"
+              },
+              "value": {
+                "type": "number",
+                "description": "The number of hours worked on the specified date"
+              }
+            },
+            "required": ["date", "value"]
+          }
+        }
+      },
+      "required": ["employeeId", "hours"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date",
+          "description": "The start date of the date range for retrieving hours"
+        },
+        "end": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the date range for retrieving hours"
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "hours": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The unique identifier for the hour record"
+              },
+              "employeeId": {
+                "type": "string",
+                "description": "The ID of the employee for whom the hours were submitted"
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "description": "The date the hours were worked"
+              },
+              "value": {
+                "type": "number",
+                "description": "The number of hours worked on the specified date"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The date and time the hour record was last updated"
+              }
+            },
+            "required": ["id", "employeeId", "date", "value", "updatedAt"]
+          }
+        }
+      },
+      "required": ["hours"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"],
+  "additionalProperties": false
+}

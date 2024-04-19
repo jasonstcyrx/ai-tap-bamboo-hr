@@ -1,0 +1,178 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reopen a Goal",
+  "description": "Reopen a goal that was previously closed or completed.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for reopening a goal",
+      "value": "/v1/performance/employees/{employeeId}/goals/{goalId}/reopen"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["POST"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "goal": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier for the goal"
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the goal"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the goal"
+            },
+            "percentComplete": {
+              "type": "integer",
+              "description": "Percentage of the goal completed"
+            },
+            "alignsWithOptionId": {
+              "type": ["string", "null"],
+              "description": "ID of the option that this goal aligns with"
+            },
+            "sharedWithEmployeeIds": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "description": "List of employee IDs that the goal is shared with"
+            },
+            "dueDate": {
+              "type": "string",
+              "description": "Due date for the goal in YYYY-MM-DD format"
+            },
+            "completionDate": {
+              "type": ["string", "null"],
+              "description": "Completion date for the goal in YYYY-MM-DD format"
+            },
+            "status": {
+              "type": "string",
+              "description": "Current status of the goal"
+            },
+            "milestones": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Unique identifier for the milestone"
+                  },
+                  "employeeGoalId": {
+                    "type": "integer",
+                    "description": "ID of the employee goal associated with this milestone"
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Title of the milestone"
+                  },
+                  "currentValue": {
+                    "type": "integer",
+                    "description": "Current value of the milestone"
+                  },
+                  "startValue": {
+                    "type": "integer",
+                    "description": "Starting value of the milestone"
+                  },
+                  "endValue": {
+                    "type": "integer",
+                    "description": "Target end value of the milestone"
+                  },
+                  "completedDateTime": {
+                    "type": ["string", "null"],
+                    "description": "Completion date and time for the milestone in ISO 8601 format"
+                  },
+                  "lastUpdateDateTime": {
+                    "type": "string",
+                    "description": "Last update date and time for the milestone in ISO 8601 format"
+                  },
+                  "lastUpdateUserId": {
+                    "type": "integer",
+                    "description": "ID of the user who last updated the milestone"
+                  }
+                },
+                "required": [
+                  "id",
+                  "employeeGoalId",
+                  "title",
+                  "currentValue",
+                  "startValue",
+                  "endValue",
+                  "lastUpdateDateTime",
+                  "lastUpdateUserId"
+                ]
+              },
+              "description": "List of milestones associated with the goal"
+            },
+            "actions": {
+              "type": "object",
+              "properties": {
+                "canEditGoalProgressBar": {
+                  "type": "boolean",
+                  "description": "Whether the user can edit the goal progress bar"
+                },
+                "canEditGoalMilestoneProgressBar": {
+                  "type": "boolean",
+                  "description": "Whether the user can edit the goal milestone progress bar"
+                }
+              },
+              "required": [
+                "canEditGoalProgressBar",
+                "canEditGoalMilestoneProgressBar"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "description",
+            "percentComplete",
+            "sharedWithEmployeeIds",
+            "dueDate",
+            "status"
+          ]
+        }
+      },
+      "required": [
+        "goal"
+      ]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"],
+  "additionalProperties": false
+}

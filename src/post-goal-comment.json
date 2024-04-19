@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Create Goal Comment",
+  "description": "Create a new comment for a specific employee's goal in BambooHR.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for creating a goal comment",
+      "value": "/v1/performance/employees/{employeeId}/goals/{goalId}/comments"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["POST"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The text content of the goal comment"
+        }
+      },
+      "required": ["text"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the created goal comment"
+        },
+        "authorUserId": {
+          "type": "integer",
+          "description": "The user ID of the author who created the comment"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The timestamp when the comment was created"
+        },
+        "text": {
+          "type": "string",
+          "description": "The text content of the goal comment"
+        },
+        "canEdit": {
+          "type": "boolean",
+          "description": "Indicates whether the user has permission to edit the comment"
+        },
+        "canDelete": {
+          "type": "boolean",
+          "description": "Indicates whether the user has permission to delete the comment"
+        }
+      },
+      "required": ["id", "authorUserId", "createdAt", "text", "canEdit", "canDelete"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "contentType", "body", "response"],
+  "additionalProperties": false
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Add Employee Table Row API",
+  "description": "This API endpoint allows you to add a row to an employee's table data in BambooHR.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for adding an employee table row",
+      "const": "/api/gateway.php/{companyDomain}/v1_1/employees/{id}/tables/{table}"
+    },
+    "method": {
+      "type": "string",
+      "const": "POST",
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": [
+        "Authorization"
+      ]
+    },
+    "contentType": {
+      "type": "string",
+      "const": "application/json",
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "description": "Date associated with the table row",
+          "example": "2010-06-01"
+        },
+        "location": {
+          "type": "string",
+          "description": "Location associated with the table row",
+          "example": "New York Office"
+        },
+        "division": {
+          "type": "string",
+          "description": "Division associated with the table row",
+          "example": "Sprockets"
+        },
+        "department": {
+          "type": "string",
+          "description": "Department associated with the table row",
+          "example": "Research and Development"
+        },
+        "jobTitle": {
+          "type": "string",
+          "description": "Job title associated with the table row",
+          "example": "Machinist"
+        },
+        "reportsTo": {
+          "type": "string",
+          "description": "Name of the person the employee reports to",
+          "example": "John Smith"
+        }
+      },
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the newly added table row"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "required": [
+    "endpoint",
+    "method", 
+    "headers",
+    "contentType",
+    "response"
+  ],
+  "additionalProperties": false
+}

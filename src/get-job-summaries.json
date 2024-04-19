@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get Job Summaries",
+  "description": "Get a list of job summaries. The owner of the API key used must have access to ATS settings. Combine as many different optional parameter filters as you like.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string", 
+      "description": "API endpoint for getting job summaries",
+      "value": "/api/gateway.php/{companyDomain}/v1/applicant_tracking/jobs"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "queryParameters": {
+      "type": "object", 
+      "properties": {
+        "jobState": {
+          "type": "string",
+          "description": "Filter jobs by state (open, closed, all)"
+        },
+        "jobTitle": {
+          "type": "string", 
+          "description": "Filter jobs by title"
+        },
+        "jobLocation": {
+          "type": "string",
+          "description": "Filter jobs by location"
+        },
+        "dateStart": {
+          "type": "string",
+          "description": "Filter jobs by start date"
+        },
+        "dateEnd": {
+          "type": "string",
+          "description": "Filter jobs by end date"
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "jobs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Job ID"
+              },
+              "title": {
+                "type": "string",
+                "description": "Job title"
+              },
+              "location": {
+                "type": "string",
+                "description": "Job location"  
+              },
+              "state": {
+                "type": "string",
+                "description": "Job state (open/closed)"
+              },
+              "dateOpened": {
+                "type": "string",
+                "description": "Date job was opened"
+              },
+              "dateClosed": {
+                "type": "string",
+                "description": "Date job was closed"
+              },
+              "applicantCount": {
+                "type": "integer",
+                "description": "Number of applicants"
+              }
+            },
+            "required": ["id", "title", "state", "applicantCount"]
+          }
+        }
+      },
+      "required": ["jobs"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"]
+}

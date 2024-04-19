@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Bulk Add/Edit Hour Records",
+  "description": "Allows bulk adding or editing of hour records for employees.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for bulk adding/editing hour records",
+      "value": "/api/gateway.php/{companyDomain}/v1/timetracking/recordBulk"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["POST"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timeTrackingId": {
+            "type": "string",
+            "description": "Unique identifier for the time tracking record"
+          },
+          "employeeId": {
+            "type": "string",
+            "description": "Unique identifier for the employee"
+          },
+          "divisionId": {
+            "type": "string",
+            "description": "Unique identifier for the division"
+          },
+          "departmentId": {
+            "type": "string",
+            "description": "Unique identifier for the department"
+          },
+          "jobTitleId": {
+            "type": "string",
+            "description": "Unique identifier for the job title"
+          },
+          "payCode": {
+            "type": "string",
+            "description": "Pay code associated with the time tracking record"
+          },
+          "dateHoursWorked": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the hours were worked"
+          },
+          "payRate": {
+            "type": "string",
+            "description": "Pay rate for the time tracking record"
+          },
+          "rateType": {
+            "type": "string",
+            "description": "Rate type for the time tracking record (e.g. REG, OT)"
+          },
+          "hoursWorked": {
+            "type": "string",
+            "description": "Number of hours worked"
+          },
+          "jobCode": {
+            "type": "string",
+            "description": "Job code associated with the time tracking record"
+          },
+          "jobData": {
+            "type": "string",
+            "description": "Additional job data associated with the time tracking record"
+          }
+        },
+        "required": ["timeTrackingId", "employeeId", "dateHoursWorked", "rateType", "hoursWorked"]
+      }
+    },
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates if the operation was successful"
+          },
+          "response": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the time tracking record"
+              },
+              "message": {
+                "type": "string",
+                "description": "Error message if the operation failed"
+              }
+            }
+          }
+        },
+        "required": ["success", "response"]
+      }
+    }
+  },
+  "required": ["endpoint", "method", "headers", "contentType", "response"]
+}

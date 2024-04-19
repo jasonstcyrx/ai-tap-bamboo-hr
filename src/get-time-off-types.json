@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get Time Off Types",
+  "description": "This endpoint gets a list of time off types.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for getting time off types",
+      "value": "/api/gateway.php/{companyDomain}/v1/meta/time_off/types/"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "Set to 'request' to get a list of all time off types with which this user can create a time off request. The default is to return the list of time off types the user has permissions on."
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "timeOffTypes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The ID of the time off type"
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the time off type"
+              },
+              "units": {
+                "type": "string",
+                "description": "The units used for this time off type (e.g. hours, days)"
+              },
+              "color": {
+                "type": "string",
+                "description": "The color code associated with this time off type"
+              },
+              "icon": {
+                "type": "string",
+                "description": "The icon associated with this time off type"
+              }
+            },
+            "required": ["id", "name", "units", "color", "icon"]
+          }
+        },
+        "defaultHours": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the day of the week"
+              },
+              "amount": {
+                "type": "string",
+                "description": "The default number of hours for this day of the week"
+              }
+            },
+            "required": ["name", "amount"]
+          }
+        }
+      },
+      "required": ["timeOffTypes", "defaultHours"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"]
+}

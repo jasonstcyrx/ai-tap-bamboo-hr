@@ -1,0 +1,85 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Add New Job Opening",
+  "description": "Add a new job opening. The owner of the API key used must have access to ATS settings.",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "API endpoint for adding a new job opening",
+      "value": "/api/gateway.php/{companyDomain}/v1/applicant_tracking/job_opening"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["POST"],
+      "description": "HTTP method used for the request"
+    },
+    "headers": {
+      "type": "object",
+      "properties": {
+        "Authorization": {
+          "type": "string",
+          "description": "Bearer token for authentication"
+        }
+      },
+      "required": ["Authorization"]
+    },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/x-www-form-urlencoded", "application/json"],
+      "description": "Content type of the request body"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title of the job opening."
+        },
+        "location": {
+          "type": "string",
+          "description": "Location of the job opening."
+        },
+        "department": {
+          "type": "string",
+          "description": "Department for the job opening."
+        },
+        "jobType": {
+          "type": "string",
+          "description": "Type of job (e.g. full-time, part-time, contract)."
+        },
+        "estimatedStart": {
+          "type": "string",
+          "description": "Estimated start date for the position (YYYY-MM-DD format)."
+        },
+        "applicationFormUrl": {
+          "type": "string",
+          "description": "URL for the application form."
+        },
+        "hiringLeadId": {
+          "type": "integer",
+          "description": "ID of the hiring lead for this job opening."
+        }
+      },
+      "required": ["title", "location", "department", "jobType"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "ID of the newly created job opening."
+        }
+      },
+      "required": ["id"]
+    }
+  },
+  "required": ["endpoint", "method", "headers", "response"],
+  "additionalProperties": false
+}
