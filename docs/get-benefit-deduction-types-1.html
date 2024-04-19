@@ -1,0 +1,114 @@
+JUMP TOBambooHR APIEmployeesGet EmployeegetUpdate EmployeepostAdd EmployeepostGet Employee DirectorygetEmployee FilesList employee files and categoriesgetAdd Employee File CategorypostUpdate Employee FilepostDelete Employee FiledeleteGet an Employee FilegetUpload Employee FilepostCompany FilesList company files and categoriesgetAdd Company File CategorypostUpdate Company FilepostDelete Company FiledeleteGet an Company FilegetUpload Company FilepostReportsGet company reportgetRequest a custom reportpostTabular DataGets table rows for a given employee and table combinationgetAdds a table rowpostUpdates a table row.postDeletes a table rowdeleteUpdates a table row.postAdds a table rowpostGets all updated employee table datagetAccount InformationGet a list of fieldsgetGet a list of tabular fieldsgetGet details for list fieldsgetAdd or Update Values for List FieldsputGet a List of UsersgetTime OffGet Time Off TypesgetGet Time Off PoliciesgetGet Time Off RequestsgetAdd a Time Off RequestputChange a Request StatusputAdd a Time Off History Item For Time Off RequestputAdjust Time Off BalanceputList Time Off Policies for EmployeegetAssign Time Off Policies for an EmployeeputList Time Off Policies for Employee, Version 1.1getAssign Time Off Policies for an Employee, Version 1.1putEstimate Future Time Off BalancesgetGet a list of Who's OutgetPhotosGet an employee photogetStore a new employee photopostLast Change InformationGets all updated employee IDsgetLoginUser LoginpostBenefitsGet benefit deduction typesgetGet employee dependentgetUpdate an employee dependentputGet all employee dependentsgetAdd an employee dependentpostHoursGet an hour recordgetAdd an hour recordpostEdit an hour recordputDelete an hour recorddeleteBulk add/edit hour recordspostGoalsGet All Aggregate Goal InfogetGet Aggregate Goal InfogetUpdate Goal SharingputUpdate Goal ProgressputGet Goal Status CountsgetGet Goal Status Counts, Version 1.1getCan Create a GoalgetGet GoalsgetCreate GoalpostUpdate GoalputDelete GoaldeleteClose GoalpostReopen a GoalpostAvailable Goal Sharing OptionsgetAlignable Goal OptionsgetGet Goal CommentsgetCreate Goal CommentpostUpdate Goal CommentputDelete Goal CommentdeleteApplicant TrackingGet Job SummariesgetGet ApplicationsgetGet Application DetailsgetAdd Application CommentpostGet StatusesgetChange Applicant's StatuspostGet Company LocationsgetGet Hiring LeadsgetAdd New CandidatepostAdd New Job OpeningpostTrainingList Training TypesgetAdd Training TypepostUpdate Training TypeputDelete Training TypedeleteList Training CategoriesgetAdd Training CategorypostUpdate Training CategoryputDelete Training CategorydeleteList Employee TrainingsgetAdd New Employee Training RecordpostUpdate Employee Training RecordputDelete Employee Training RecorddeletePublic BETATime Tracking - Public BetaGet Timesheet EntriesgetAdd/Edit Timesheet Clock EntriespostDelete Timesheet Clock EntriespostAdd/Edit Timesheet Hour EntriespostDelete Timesheet Hour EntriespostAdd Timesheet Clock-In EntrypostAdd Timesheet Clock-Out EntrypostGet Employee ProjectsgetCreate a Time Tracking ProjectpostWebhooksAdd WebhookpostGets as list of webhooks for the user API key.getGet WebhookgetUpdate WebhookputDelete WebhookdeleteGet monitor fieldsgetGet Webhook LogsgetGive API FeedbackPowered by Get benefit deduction typesget https://api.bamboohr.com/api/gateway.php/{companyDomain}/v1/benefits/settings/deduction_types/allGet benefit deduction typesSample Response
+JSON[
+    {
+        "id": 1,
+        "deductionTypeName": "401(k) - Pre-Tax",
+        "allowableBenefitTypes": [
+            "retirement"
+        ]
+    },
+    {
+        "id": 4,
+        "deductionTypeName": "Post Tax Deduction",
+        "allowableBenefitTypes": [
+            "other",
+            "life",
+            "disability"
+        ]
+    },
+    {
+        "id": 5,
+        "deductionTypeName": "Section 125 - Pre-Tax",
+        "allowableBenefitTypes": [
+            "dental",
+            "vision",
+            "flex",
+            "supplemental"
+        ]
+    },
+    {
+        "id": 8,
+        "deductionTypeName": "Section 132 - Commuter Benefit - Pre-Tax",
+        "allowableBenefitTypes": [
+            "other"
+        ]
+    },
+    {
+        "id": 9,
+        "deductionTypeName": "Health Savings Account - Pre-Tax",
+        "allowableBenefitTypes": [
+            "hsa"
+        ]
+    },
+    {
+        "id": 11,
+        "deductionTypeName": "Simple IRA - 408(p) - Pre-Tax",
+        "allowableBenefitTypes": [
+            "retirement"
+        ]
+    },
+    {
+        "id": 12,
+        "deductionTypeName": "403(b) - Pre-Tax",
+        "allowableBenefitTypes": [
+            "retirement"
+        ]
+    },
+    {
+        "id": 13,
+        "deductionTypeName": "457(b) - Pre-Tax",
+        "allowableBenefitTypes": [
+            "retirement"
+        ]
+    },
+    {
+        "id": 14,
+        "deductionTypeName": "501(c) - Donation - Pre-Tax",
+        "allowableBenefitTypes": [
+            "other"
+        ]
+    },
+    {
+        "id": 17,
+        "deductionTypeName": "401(k) Roth - Post-Tax",
+        "allowableBenefitTypes": [
+            "retirement"
+        ]
+    },
+    {
+        "id": 20,
+        "deductionTypeName": "403(b) Roth - Post-Tax",
+        "allowableBenefitTypes": [
+            "retirement"
+        ]
+    },
+    {
+        "id": 21,
+        "deductionTypeName": "NQ Deferred Compensation - Pre-Tax",
+        "allowableBenefitTypes": [
+            "retirement"
+        ]
+    },
+    {
+        "id": 24,
+        "deductionTypeName": "Section 125 Dependent Care Benefits - Pre-Tax",
+        "allowableBenefitTypes": [
+            "flex"
+        ]
+    },
+    {
+        "id": 25,
+        "deductionTypeName": "Section 125 Health - Pre-Tax",
+        "allowableBenefitTypes": [
+            "health",
+            "variable"
+        ]
+    },
+    {
+        "id": 28,
+        "deductionTypeName": "401(a) - Money-purchase retirement plan",
+        "allowableBenefitTypes": [
+            "retirement"
+        ]
+    }
+]

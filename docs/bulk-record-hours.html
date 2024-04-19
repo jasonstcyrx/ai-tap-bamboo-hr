@@ -1,0 +1,81 @@
+JUMP TOBambooHR APIEmployeesGet EmployeegetUpdate EmployeepostAdd EmployeepostGet Employee DirectorygetEmployee FilesList employee files and categoriesgetAdd Employee File CategorypostUpdate Employee FilepostDelete Employee FiledeleteGet an Employee FilegetUpload Employee FilepostCompany FilesList company files and categoriesgetAdd Company File CategorypostUpdate Company FilepostDelete Company FiledeleteGet an Company FilegetUpload Company FilepostReportsGet company reportgetRequest a custom reportpostTabular DataGets table rows for a given employee and table combinationgetAdds a table rowpostUpdates a table row.postDeletes a table rowdeleteUpdates a table row.postAdds a table rowpostGets all updated employee table datagetAccount InformationGet a list of fieldsgetGet a list of tabular fieldsgetGet details for list fieldsgetAdd or Update Values for List FieldsputGet a List of UsersgetTime OffGet Time Off TypesgetGet Time Off PoliciesgetGet Time Off RequestsgetAdd a Time Off RequestputChange a Request StatusputAdd a Time Off History Item For Time Off RequestputAdjust Time Off BalanceputList Time Off Policies for EmployeegetAssign Time Off Policies for an EmployeeputList Time Off Policies for Employee, Version 1.1getAssign Time Off Policies for an Employee, Version 1.1putEstimate Future Time Off BalancesgetGet a list of Who's OutgetPhotosGet an employee photogetStore a new employee photopostLast Change InformationGets all updated employee IDsgetLoginUser LoginpostBenefitsGet benefit deduction typesgetGet employee dependentgetUpdate an employee dependentputGet all employee dependentsgetAdd an employee dependentpostHoursGet an hour recordgetAdd an hour recordpostEdit an hour recordputDelete an hour recorddeleteBulk add/edit hour recordspostGoalsGet All Aggregate Goal InfogetGet Aggregate Goal InfogetUpdate Goal SharingputUpdate Goal ProgressputGet Goal Status CountsgetGet Goal Status Counts, Version 1.1getCan Create a GoalgetGet GoalsgetCreate GoalpostUpdate GoalputDelete GoaldeleteClose GoalpostReopen a GoalpostAvailable Goal Sharing OptionsgetAlignable Goal OptionsgetGet Goal CommentsgetCreate Goal CommentpostUpdate Goal CommentputDelete Goal CommentdeleteApplicant TrackingGet Job SummariesgetGet ApplicationsgetGet Application DetailsgetAdd Application CommentpostGet StatusesgetChange Applicant's StatuspostGet Company LocationsgetGet Hiring LeadsgetAdd New CandidatepostAdd New Job OpeningpostTrainingList Training TypesgetAdd Training TypepostUpdate Training TypeputDelete Training TypedeleteList Training CategoriesgetAdd Training CategorypostUpdate Training CategoryputDelete Training CategorydeleteList Employee TrainingsgetAdd New Employee Training RecordpostUpdate Employee Training RecordputDelete Employee Training RecorddeletePublic BETATime Tracking - Public BetaGet Timesheet EntriesgetAdd/Edit Timesheet Clock EntriespostDelete Timesheet Clock EntriespostAdd/Edit Timesheet Hour EntriespostDelete Timesheet Hour EntriespostAdd Timesheet Clock-In EntrypostAdd Timesheet Clock-Out EntrypostGet Employee ProjectsgetCreate a Time Tracking ProjectpostWebhooksAdd WebhookpostGets as list of webhooks for the user API key.getGet WebhookgetUpdate WebhookputDelete WebhookdeleteGet monitor fieldsgetGet Webhook LogsgetGive API FeedbackPowered by Bulk add/edit hour recordspost https://api.bamboohr.com/api/gateway.php/{companyDomain}/v1/timetracking/recordBulk add/edit hour recordsSample request 1:
+JSON[
+   {
+    "timeTrackingId": "9abf58d1-6657-11e6-b28d-0800272a335a",
+    "employeeId": "40342",
+    "divisionId": "17964",
+    "departmentId": "17939",
+    "jobTitleId": "17924",
+    "payCode": "002455",
+    "dateHoursWorked": "2017-04-15",
+    "payRate": "27.7765",
+    "rateType": "REG",
+    "hoursWorked": "4.5760",
+    "jobCode": "123456",
+    "jobData": "9abf58d1-6657-11e6-b,9abf58d1-6657-11e6-a"
+   },
+   {
+    "timeTrackingId": "1010",
+    "employeeId": "7",
+    "dateHoursWorked": "2017-04-16",
+    "rateType": "REG",
+    "hoursWorked": "5.5",
+   }
+]
+
+Sample response 1:
+JSON[
+  {
+    "success": true,
+    "response": {
+      "id": "9abf58d1-6657-11e6-b28d-0800272a335a"
+    }
+  },
+  {
+    "success": true,
+    "response": {
+      "id": "1010"
+    }
+  }
+]
+
+Sample request 2:
+JSON[
+   {
+    "timeTrackingId": "1510",
+    "employeeId": "7",
+    "divisionId": "18029",
+    "departmentId": "18028",
+    "jobTitleId": "18027",
+    "dateHoursWorked": "2017-04-15",
+    "rateType": "REG",
+    "hoursWorked": "4.5760"
+   },
+   {
+    "timeTrackingId" : "1010",
+    "employeeId" : "7",
+    "dateHoursWorked" : "2017-04-16",
+    "rateType" : "OT",
+    "hoursWorked" : "6.5"
+   }
+]
+
+Sample response 2:
+JSON[
+  {
+    "success": true,
+    "response": {
+      "id": "1510"
+    }
+  },
+  {
+    "success": false,
+    "response": {
+       "message": "Only hours worked can be edited on an update. (rateType)    
+                   is either missing or not allowed to be updated"
+    }
+  }
+]
+
+Notes
+If adjusting a time tracking entry the entire original timeTracking object must be presented and only the hoursWorked may be changed

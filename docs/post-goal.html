@@ -1,0 +1,86 @@
+JUMP TOBambooHR APIEmployeesGet EmployeegetUpdate EmployeepostAdd EmployeepostGet Employee DirectorygetEmployee FilesList employee files and categoriesgetAdd Employee File CategorypostUpdate Employee FilepostDelete Employee FiledeleteGet an Employee FilegetUpload Employee FilepostCompany FilesList company files and categoriesgetAdd Company File CategorypostUpdate Company FilepostDelete Company FiledeleteGet an Company FilegetUpload Company FilepostReportsGet company reportgetRequest a custom reportpostTabular DataGets table rows for a given employee and table combinationgetAdds a table rowpostUpdates a table row.postDeletes a table rowdeleteUpdates a table row.postAdds a table rowpostGets all updated employee table datagetAccount InformationGet a list of fieldsgetGet a list of tabular fieldsgetGet details for list fieldsgetAdd or Update Values for List FieldsputGet a List of UsersgetTime OffGet Time Off TypesgetGet Time Off PoliciesgetGet Time Off RequestsgetAdd a Time Off RequestputChange a Request StatusputAdd a Time Off History Item For Time Off RequestputAdjust Time Off BalanceputList Time Off Policies for EmployeegetAssign Time Off Policies for an EmployeeputList Time Off Policies for Employee, Version 1.1getAssign Time Off Policies for an Employee, Version 1.1putEstimate Future Time Off BalancesgetGet a list of Who's OutgetPhotosGet an employee photogetStore a new employee photopostLast Change InformationGets all updated employee IDsgetLoginUser LoginpostBenefitsGet benefit deduction typesgetGet employee dependentgetUpdate an employee dependentputGet all employee dependentsgetAdd an employee dependentpostHoursGet an hour recordgetAdd an hour recordpostEdit an hour recordputDelete an hour recorddeleteBulk add/edit hour recordspostGoalsGet All Aggregate Goal InfogetGet Aggregate Goal InfogetUpdate Goal SharingputUpdate Goal ProgressputGet Goal Status CountsgetGet Goal Status Counts, Version 1.1getCan Create a GoalgetGet GoalsgetCreate GoalpostUpdate GoalputDelete GoaldeleteClose GoalpostReopen a GoalpostAvailable Goal Sharing OptionsgetAlignable Goal OptionsgetGet Goal CommentsgetCreate Goal CommentpostUpdate Goal CommentputDelete Goal CommentdeleteApplicant TrackingGet Job SummariesgetGet ApplicationsgetGet Application DetailsgetAdd Application CommentpostGet StatusesgetChange Applicant's StatuspostGet Company LocationsgetGet Hiring LeadsgetAdd New CandidatepostAdd New Job OpeningpostTrainingList Training TypesgetAdd Training TypepostUpdate Training TypeputDelete Training TypedeleteList Training CategoriesgetAdd Training CategorypostUpdate Training CategoryputDelete Training CategorydeleteList Employee TrainingsgetAdd New Employee Training RecordpostUpdate Employee Training RecordputDelete Employee Training RecorddeletePublic BETATime Tracking - Public BetaGet Timesheet EntriesgetAdd/Edit Timesheet Clock EntriespostDelete Timesheet Clock EntriespostAdd/Edit Timesheet Hour EntriespostDelete Timesheet Hour EntriespostAdd Timesheet Clock-In EntrypostAdd Timesheet Clock-Out EntrypostGet Employee ProjectsgetCreate a Time Tracking ProjectpostWebhooksAdd WebhookpostGets as list of webhooks for the user API key.getGet WebhookgetUpdate WebhookputDelete WebhookdeleteGet monitor fieldsgetGet Webhook LogsgetGive API FeedbackPowered by Create Goalpost https://api.bamboohr.com/api/gateway.php/{companyDomain}/v1/performance/employees/{employeeId}/goalsCreate a new goal for an employee.Sample Request Url
+Texthttps://api.bamboohr.com/api/gateway.php/samplecompany/v1/performance/employees/123/goals
+
+Sample Request Body Without Milestones
+JSON{
+	"description": "I wanna do a cartwheel. But real casual like. Not enough to make a big deal out of it, but I know everyone saw it. One stunning, gorgeous cartwheel.",
+	"dueDate": "2021-03-17",
+	"percentComplete": 0,
+	"sharedWithEmployeeIds": [
+		"123"
+	],
+	"title": "Do the perfect cartwheel"
+}
+
+Sample Request Body With Milestones
+JSON{
+    "description": "Ut enim ad minim veniam.",
+    "dueDate": "2024-12-17",
+    "sharedWithEmployeeIds": [
+        123
+    ],
+    "title": "Lorem ipsum dolor sit amet.",
+    "milestones": [
+        {
+            "title": "milestone a",
+            "startValue": 100,
+            "endValue": 50
+        },
+        {
+            "title": "milestone b",
+            "startValue": -7,
+            "endValue": 5
+        }
+    ]
+}
+
+Sample Response Without Milestones
+JSON{
+    "goal": {
+        "id": "20",
+        "title": "Do the perfect cartwheel",
+        "description": "I wanna do a cartwheel. But real casual like. Not enough to make a big deal out of it, but I know everyone saw it. One stunning, gorgeous cartwheel.",
+        "percentComplete": 0,
+        "alignsWithOptionId": null,
+        "sharedWithEmployeeIds": [
+            123
+        ],
+        "dueDate": "2021-03-17",
+        "completionDate": null,
+        "status": "in-progress"
+    }
+}
+
+Sample Response With Milestones
+JSON{
+    "goal": {
+        "id": "23",
+        "title": "Do the perfect cartwheel",
+        "description": "I wanna do a cartwheel. But real casual like. Not enough to make a big deal out of it, but I know everyone saw it. One stunning, gorgeous cartwheel.",
+        "percentComplete": 0,
+        "alignsWithOptionId": null,
+        "sharedWithEmployeeIds": [
+            123
+        ],
+        "dueDate": "2021-03-17",
+        "completionDate": null,
+        "status": "in-progress",
+        "milestones": [
+            {
+                "id": 17,
+                "employeeGoalId": 16,
+                "title": "Lorem ipsum dolor sit amet",
+                "currentValue": 100,
+                "startValue": 100,
+                "endValue": 50,
+                "completedDateTime": null,
+                "lastUpdateDateTime": "2022-07-15T15:37:02Z",
+                "lastUpdateUserId": 123
+            }
+         ],
+         "actions": {
+            "canEditGoalProgressBar": false,
+            "canEditGoalMilestoneProgressBar": true
+        }
+    }
+}

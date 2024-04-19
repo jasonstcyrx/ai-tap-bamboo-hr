@@ -1,0 +1,51 @@
+JUMP TOBambooHR APIEmployeesGet EmployeegetUpdate EmployeepostAdd EmployeepostGet Employee DirectorygetEmployee FilesList employee files and categoriesgetAdd Employee File CategorypostUpdate Employee FilepostDelete Employee FiledeleteGet an Employee FilegetUpload Employee FilepostCompany FilesList company files and categoriesgetAdd Company File CategorypostUpdate Company FilepostDelete Company FiledeleteGet an Company FilegetUpload Company FilepostReportsGet company reportgetRequest a custom reportpostTabular DataGets table rows for a given employee and table combinationgetAdds a table rowpostUpdates a table row.postDeletes a table rowdeleteUpdates a table row.postAdds a table rowpostGets all updated employee table datagetAccount InformationGet a list of fieldsgetGet a list of tabular fieldsgetGet details for list fieldsgetAdd or Update Values for List FieldsputGet a List of UsersgetTime OffGet Time Off TypesgetGet Time Off PoliciesgetGet Time Off RequestsgetAdd a Time Off RequestputChange a Request StatusputAdd a Time Off History Item For Time Off RequestputAdjust Time Off BalanceputList Time Off Policies for EmployeegetAssign Time Off Policies for an EmployeeputList Time Off Policies for Employee, Version 1.1getAssign Time Off Policies for an Employee, Version 1.1putEstimate Future Time Off BalancesgetGet a list of Who's OutgetPhotosGet an employee photogetStore a new employee photopostLast Change InformationGets all updated employee IDsgetLoginUser LoginpostBenefitsGet benefit deduction typesgetGet employee dependentgetUpdate an employee dependentputGet all employee dependentsgetAdd an employee dependentpostHoursGet an hour recordgetAdd an hour recordpostEdit an hour recordputDelete an hour recorddeleteBulk add/edit hour recordspostGoalsGet All Aggregate Goal InfogetGet Aggregate Goal InfogetUpdate Goal SharingputUpdate Goal ProgressputGet Goal Status CountsgetGet Goal Status Counts, Version 1.1getCan Create a GoalgetGet GoalsgetCreate GoalpostUpdate GoalputDelete GoaldeleteClose GoalpostReopen a GoalpostAvailable Goal Sharing OptionsgetAlignable Goal OptionsgetGet Goal CommentsgetCreate Goal CommentpostUpdate Goal CommentputDelete Goal CommentdeleteApplicant TrackingGet Job SummariesgetGet ApplicationsgetGet Application DetailsgetAdd Application CommentpostGet StatusesgetChange Applicant's StatuspostGet Company LocationsgetGet Hiring LeadsgetAdd New CandidatepostAdd New Job OpeningpostTrainingList Training TypesgetAdd Training TypepostUpdate Training TypeputDelete Training TypedeleteList Training CategoriesgetAdd Training CategorypostUpdate Training CategoryputDelete Training CategorydeleteList Employee TrainingsgetAdd New Employee Training RecordpostUpdate Employee Training RecordputDelete Employee Training RecorddeletePublic BETATime Tracking - Public BetaGet Timesheet EntriesgetAdd/Edit Timesheet Clock EntriespostDelete Timesheet Clock EntriespostAdd/Edit Timesheet Hour EntriespostDelete Timesheet Hour EntriespostAdd Timesheet Clock-In EntrypostAdd Timesheet Clock-Out EntrypostGet Employee ProjectsgetCreate a Time Tracking ProjectpostWebhooksAdd WebhookpostGets as list of webhooks for the user API key.getGet WebhookgetUpdate WebhookputDelete WebhookdeleteGet monitor fieldsgetGet Webhook LogsgetGive API FeedbackPowered by Gets all updated employee IDsget https://api.bamboohr.com/api/gateway.php/{companyDomain}/v1/employees/changedThis API allows for efficient syncing of employee data. When you use this API you will provide a timestamp and the results will be limited to just the employees that have changed since the time you provided. This API operates on an employee-last-changed-timestamp, which means that a change in ANY individual field in the employee record, as well as any change to the employment status, job info, or compensation tables, will cause that employee to be returned via this API.Sample Response
+JSON{
+	"latest": "2011-06-02T19:26:23+00:00",
+	"employees": {
+		"3": {
+			"id":"3",
+			"action":"Inserted",
+			"lastChanged":"2011-06-02T19:26:23+00:00"
+		},
+		"4": {
+			"id":"4",
+			"action":"Updated",
+			"lastChanged":"2011-06-02T19:26:23+00:00"
+		},
+		"5": {
+			"id":"5",
+			"action":"Deleted",
+			"lastChanged":"2011-06-02T19:26:23+00:00"
+		},
+		"10": {
+			"id":"10",
+			"action":"Inserted",
+			"lastChanged":"2011-05-31T22:57:10+00:00"
+		}
+	}
+}
+
+Date Format
+The "since" parameter is an ISO 8601 date in one of the following formats:
+yyyy-mm-ddThh:mm:ss+hh:mm
+yyyy-mm-ddThh:mm:ss-hh:mm
+yyyy-mm-ddThh:mm:ss+hhmm
+yyyy-mm-ddThh:mm:ss-hhmm
+yyyy-mm-ddThh:mm:ssZ
+where:
+yyyy=four digit year
+mm=month 01-12
+dd=day of month 01-31
+hh=hour 00-23
+mm=minute 00-59
+ss=second 00-59
+T=literally the letter "T"
+Z=literally the letter "Z"
+NOTE: Documentation will reference positive offsets (+hh:mm, +hhmm) with the '+' symbol for correctness, but because the symbol has meaning within a url, an alternate character set for that symbol will have to be used in actual requests: %2B. So the result would be: %2Bhh:mm, %2Bhhmm. %2B will be converted to + by the time we receive the request.
+The final format is for expressing a time in UTC. The other four formats are for expressing the time as an offset from UTC. In these formats the first two digits are the hours to offset and the last two digits are the minutes. So +02:00 means two hours after UTC.
+Example: July 4th, 2011 at 1:05pm Mountain Standard Time would be expressed as: 2011-07-04T13:05:00-07:00
+Possible Types (optional)
+Use one of these in the {type} variable in the URL: "inserted", "updated", "deleted"
+Response
+The response will contain a series of "employee" tags. Each tag represents a single employee that was changed. The "id" attribute is the employee ID that can be used to make additional API calls. There is an "action" attribute that will say whether the employee was "inserted", "updated", or "deleted". There will also be a "lastChanged" attribute that specifies what time the most recent change was to the record. If an employee was updated multiple times, only the time of the most recent change will be reflected in the timestamp. In the scenario where the "since" date parameter is BEFORE the date that the user was created, the API will return the date that the user was "inserted".  If the "since" date is AFTER the date the user was created, the API will return the date that the user was last "updated".
+As a convenience, the outermost "changeList" tag will have a "latest" attribute that identifies the most recent change of all changes returned by the API call. You can use this timestamp as the "since" parameter in a subsequent call to get changes since that the previous call to this API method.
